@@ -9,7 +9,6 @@ import os
 import regex as re
 import shutil
 
-
 # Removal Method
 def removal(arguments):
     args = arguments.split(',')
@@ -127,7 +126,6 @@ def main():
         print('%s ' % e)
     else:
         print('\n%s was deleted' % path)
-
 
 if __name__ == '__main__':
     main()
