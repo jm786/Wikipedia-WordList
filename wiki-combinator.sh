@@ -5,7 +5,23 @@ string=`which python3.7`
 if [ !$string ]
 then
 	apt install software-properties-common
-	add-
+	add-apt-repository ppa:deadsnakes/ppa
+	apt update
+	apt install python3.7
+	alias python3=python3.7
+	apt update
+fi
+
+string=`which pip3`
+if [ !$string ]
+then
+	apt install python3-pip
+	pip3 install --upgrade pip
+fi
+
+apt install -qqq python-regex
+pip3 install -qqq tqdm wget filesplit
+
 if [ $# -eq 1 ]
 then
 	processors=$1
