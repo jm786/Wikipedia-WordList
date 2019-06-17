@@ -1,5 +1,11 @@
 #!/bin/sh
+apt update
 
+string=`which python3.7`
+if [ !$string ]
+then
+	apt install software-properties-common
+	add-
 if [ $# -eq 1 ]
 then
 	processors=$1
