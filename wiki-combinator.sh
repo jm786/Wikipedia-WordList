@@ -1,26 +1,26 @@
 #!/bin/sh
-apt update
+apt update -qqq
 
 string=`which python3.7`
 if [ !$string ]
 then
-	apt install software-properties-common
-	add-apt-repository ppa:deadsnakes/ppa
-	apt update
-	apt install python3.7
+	apt install -qqq software-properties-common
+	add-apt-repository -qqq ppa:deadsnakes/ppa
+	apt -qqq update
+	apt install -qqq python3.7
 	alias python3=python3.7
-	apt update
+	apt -qqq update
 fi
 
 string=`which pip3`
 if [ !$string ]
 then
-	apt install python3-pip
-	pip3 install --upgrade pip
+	apt -qqq install python3-pip
+	pip3 -qqq install --upgrade pip
 fi
 
 apt install -qqq python-regex
-pip3 install -qqq tqdm wget filesplit
+pip3 install -qqq --user tqdm wget filesplit
 
 if [ $# -eq 1 ]
 then
@@ -49,3 +49,8 @@ then
 else
         mkdir $dump_path
         echo "Wikiidumps directory created successfully"
+fi
+
+chdir $dump_path
+python3 $master_path/namescraper.py
+
