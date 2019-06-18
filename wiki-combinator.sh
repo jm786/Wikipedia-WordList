@@ -66,4 +66,3 @@ do
                 python3.7 extractor.py $filename $dump_path $processors
 	fi
 done
-
