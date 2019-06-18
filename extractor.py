@@ -8,7 +8,6 @@ import sys
 import os
 import shutil
 
-
 # Removal Method
 def removal(filename):
     with open(filename, 'r+', encoding="UTF-8") as f:

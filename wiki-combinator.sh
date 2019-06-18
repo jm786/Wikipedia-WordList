@@ -18,12 +18,12 @@ then
 	echo "Pip is installed"
 else
 	echo "Installing pip"
-	apt -qqq install python3-pip
-	python3.7 -m pip -qqq install --upgrade pip
+	wget https://bootstrap.pypa.io/get-pip.py
+	python3.7 get-pip.py
+	rm get-pip.py
 fi
 
-apt install -qqq python3-regex python3-wget
--H python3.7 -m pip install -qqq tqdm filesplit
+python3.7 -m pip install -qqq tqdm filesplit wget
 
 if [ $# -eq 1 ]
 then
