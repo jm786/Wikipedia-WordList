@@ -6,24 +6,20 @@ from fsplit.filesplit import FileSplit
 from multiprocessing import Pool
 import sys
 import os
-import re
 import shutil
 
 
 # Removal Method
-def removal(arguments):
-    args = arguments.split(',')
-    pattern = re.compile(args[0])
-
-    with open(args[2], 'r+', encoding="UTF-8") as f:
+def removal(filename):
+    with open(filename, 'r+', encoding="UTF-8") as f:
         text = ''
         for line in f:
-            if (int(args[3]) == 1):
-                if (len(line.strip()) != 0):
-                    text += re.sub(pattern, args[1], line)
-            if (int(args[3]) == 2):
-                if (len(line.strip()) >= 4):
-                    text += line
+            if (len(line.strip()) != 0):
+                newline = ''.join(c for c in line if c.isalnum()) + '\n'
+                if (len(newline) > 4):
+                    text += newline
+                else:
+                    continue
         f.seek(0)
         f.write(text)
         f.truncate()
@@ -49,7 +45,6 @@ def main():
     else:
         print("Wikisplits directory created")
 
-    return
     #################################################################
     # Splits up the file to facilitate data manipulation (size in MB)
     #################################################################
@@ -65,36 +60,17 @@ def main():
     ###################################################
 
     # Removes all non-Alphanumeric Characters
-    print("\nRemoving non-Alphanumeric Characters...")
+    print("\nRemoving non-alphanumeric characters & words smaller than 4...")
 
     os.chdir(path)
     directory = os.getcwd()
     dirlist = sorted(os.listdir(directory))
-    pattern = r'[\p{S}\p{P}\p{Z}]'
-    arguments = []
-
-    for file in dirlist:
-        arguments.append(pattern+',\n,'+file+',1')
 
     pool = Pool(processes=pros)
-    for _ in tqdm(pool.imap(removal, arguments), total=len(arguments)):
+    for _ in tqdm(pool.imap(removal, dirlist), total=len(dirlist)):
         pass
 
-    print("\nNon-Alphanumeric Characters removed")
-
-    # Deletes all words smaller than 4 characters
-    print("\nRemoving all words smaller than 4 characters...")
-
-    pattern = r'\b[a-zA-Z0-9]{3}\b'
-    arguments = []
-    for file in dirlist:
-        arguments.append(pattern+',\n,'+file+',2')
-
-    pool = Pool(processes=pros)
-    for _ in tqdm(pool.imap(removal, arguments), total=len(arguments)):
-        pass
-
-    print("\nAll words smaller than 4 characters removed")
+    print("\nNon-Alphanumeric characters and words of size smaller than 4 removed.")
 
     ########################################################
     # Merges the lists back together, eliminating duplicates

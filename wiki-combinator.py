@@ -30,7 +30,7 @@ else:
     print("Wikidumps directory created")
 
 os.chdir(dump_path)
-os.system('python %s' % (os.path.join(master_path, 'namescraper.py')))
+#os.system('python %s' % (os.path.join(master_path, 'namescraper.py')))
 os.chdir('..')
 
 for file in sorted(os.listdir(dump_path)):
@@ -64,9 +64,9 @@ fileresult.close()
 '''
 
 result_path = os.path.join(master_path, "wiki-extraction-wordlist-unsorted.txt")
-with open(result_path, 'wb', encoding="UTF-8") as wfd:
-    for file in os.listdir(sorted(os.getcwd())):
-        with open(file, 'rb', encoding="UTF-8") as fd:
+with open(result_path, 'wb') as wfd:
+    for file in sorted(os.listdir(os.getcwd())):
+        with open(file, 'rb') as fd:
             shutil.copyfileobj(fd, wfd)
 
 os.system('touch wiki-extraction-wordlist.txt')
