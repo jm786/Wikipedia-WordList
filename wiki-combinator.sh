@@ -1,8 +1,7 @@
 #!/bin/sh
 apt update -qqq
 
-string=`which python3.7`
-if [ `cat $string | egrep -c "python3.7"` -gt 0 ]
+if [ `which python3.7 | egrep -c "python3.7"` -gt 0 ]
 then
 	echo "Python3.7 is installed"
 else
@@ -11,22 +10,20 @@ else
 	add-apt-repository ppa:deadsnakes/ppa > /dev/null 2>&1
 	apt -qqq update
 	apt install -qqq python3.7
-	alias python=python3.7
 	apt -qqq update
 fi
 
-string=`which pip3`
-if [ `cat $string | egrep -c "pip3"` -gt 0 ]
+if [ `which pip | egrep -c "pip"` -gt 0 ]
 then
-	echo "Pip3 is installed"
+	echo "Pip is installed"
 else
-	echo "Installing pip3"
+	echo "Installing pip"
 	apt -qqq install python3-pip
-	pip3 -qqq install --upgrade pip
+	python3.7 -m pip -qqq install --upgrade pip
 fi
 
-apt install -qqq python-regex
-pip3 install -qqq --user tqdm wget filesplit
+apt install -qqq python3-regex python3-wget
+python3.7 -m pip install -qqq tqdm filesplit
 
 if [ $# -eq 1 ]
 then
@@ -58,5 +55,15 @@ else
 fi
 
 chdir $dump_path
-python $master_path/namescraper.py
+#python3.7 $master_path/namescraper.py
+chdir ..
+
+for file in $dump_path/*
+do
+        if [ `echo $file | egrep '\.xml$'` ]
+        then
+		filename=`echo $file | egrep -o '[a-z][a-z]wiki[a-z]*-latest-pages-articles\.xml$'`
+                python3.7 extractor.py $filename $dump_path $processors
+	fi
+done
 
