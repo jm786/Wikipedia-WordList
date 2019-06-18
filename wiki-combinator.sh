@@ -23,7 +23,7 @@ else
 fi
 
 apt install -qqq python3-regex python3-wget
-python3.7 -m pip install -qqq tqdm filesplit
+-H python3.7 -m pip install -qqq tqdm filesplit
 
 if [ $# -eq 1 ]
 then
