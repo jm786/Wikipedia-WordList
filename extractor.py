@@ -6,20 +6,21 @@ from fsplit.filesplit import FileSplit
 from multiprocessing import Pool
 import sys
 import os
-import regex as re
+import re
 import shutil
+
 
 # Removal Method
 def removal(arguments):
     args = arguments.split(',')
-    regex = re.compile(args[0])
+    pattern = re.compile(args[0])
 
     with open(args[2], 'r+', encoding="UTF-8") as f:
         text = ''
         for line in f:
             if (int(args[3]) == 1):
                 if (len(line.strip()) != 0):
-                    text += regex.sub(args[1], line)
+                    text += re.sub(pattern, args[1], line)
             if (int(args[3]) == 2):
                 if (len(line.strip()) >= 4):
                     text += line
@@ -33,8 +34,6 @@ def main():
     print("Wikipedia Wordlist Extractor")
     xmlfile_path = os.path.join(sys.argv[2], sys.argv[1])
     pros = int(sys.argv[3])
-    print(sys.argv[3])
-    print(sys.argv[2])
     listname = sys.argv[1][:-4] + "-wordlist.txt"
 
     #################################################
@@ -126,6 +125,7 @@ def main():
         print('%s ' % e)
     else:
         print('\n%s was deleted' % path)
+
 
 if __name__ == '__main__':
     main()
