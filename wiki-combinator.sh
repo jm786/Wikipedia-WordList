@@ -2,19 +2,25 @@
 apt update -qqq
 
 string=`which python3.7`
-if [ !$string ]
+if [ `cat $string | egrep -c "python3.7"` -gt 0 ]
 then
+	echo "Python3.7 is installed"
+else
+	echo "Installing Python 3.7"
 	apt install -qqq software-properties-common
-	add-apt-repository -qqq ppa:deadsnakes/ppa
+	add-apt-repository ppa:deadsnakes/ppa > /dev/null 2>&1
 	apt -qqq update
 	apt install -qqq python3.7
-	alias python3=python3.7
+	alias python=python3.7
 	apt -qqq update
 fi
 
 string=`which pip3`
-if [ !$string ]
+if [ `cat $string | egrep -c "pip3"` -gt 0 ]
 then
+	echo "Pip3 is installed"
+else
+	echo "Installing pip3"
 	apt -qqq install python3-pip
 	pip3 -qqq install --upgrade pip
 fi
@@ -52,5 +58,5 @@ else
 fi
 
 chdir $dump_path
-python3 $master_path/namescraper.py
+python $master_path/namescraper.py
 
