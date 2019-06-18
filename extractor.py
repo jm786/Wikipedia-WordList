@@ -27,9 +27,9 @@ def removal(filename):
 
 def main():
     print("Wikipedia Wordlist Extractor")
-    xmlfile_path = os.path.join(sys.argv[2], sys.argv[1])
+    xmlfile_path = sys.argv[1]
     pros = int(sys.argv[3])
-    listname = sys.argv[1][:-4] + "-wordlist.txt"
+    listname = sys.argv[2][:-4] + "-wordlist.txt"
 
     #################################################
     # Creating directory for storing splits if such a

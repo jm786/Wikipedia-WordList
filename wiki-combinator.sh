@@ -55,7 +55,7 @@ else
 fi
 
 chdir $dump_path
-#python3.7 $master_path/namescraper.py
+python3.7 $master_path/namescraper.py
 chdir ..
 
 for file in $dump_path/*
@@ -63,6 +63,26 @@ do
         if [ `echo $file | egrep '\.xml$'` ]
         then
 		filename=`echo $file | egrep -o '[a-z][a-z]wiki[a-z]*-latest-pages-articles\.xml$'`
-                python3.7 extractor.py $filename $dump_path $processors
+                python3.7 extractor.py $file $filename $processors
 	fi
 done
+
+echo "Merging lists together"
+chdir $list_path
+echo $PWD
+
+result_path=$master_path/wiki-extraction-wordlist-unsorted.txt
+touch $result_path
+
+cat ./*-wordlist.txt >> $result_path
+chdir ..
+
+touch wiki-extraction-wordlist.txt
+sort wiki-extraction-wordlist-unsorted.txt | uniq > wiki-extraction-wordlist.txt
+
+#rm -r $list_path
+#rm -r $dump_path
+#rm -r $master_path/wikisplits
+
+echo "wiki-extraction-wordlist.txt has been created. It contains all the words from the wikimedia dumps."
+
