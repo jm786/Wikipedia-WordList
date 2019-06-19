@@ -5,7 +5,6 @@
 from tqdm import tqdm
 from fsplit.filesplit import FileSplit
 from multiprocessing import Pool
-import sys
 import os
 import shutil
 import argparse
