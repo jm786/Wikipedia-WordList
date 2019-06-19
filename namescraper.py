@@ -1,3 +1,4 @@
+#!/usr/bin/python3.7
 from tqdm import tqdm
 import xml.dom.minidom as minidom
 import bz2
@@ -5,7 +6,7 @@ import wget
 import os
 import urllib
 
-os.system("python -m wget https://meta.wikimedia.org/wiki/Table_of_Wikimedia_projects -o Table_of_Wikimedia_projects.html")
+os.system("python3.7 -m wget https://meta.wikimedia.org/wiki/Table_of_Wikimedia_projects -o Table_of_Wikimedia_projects.html")
 htmlpage = minidom.parse("Table_of_Wikimedia_projects.html")
 rows = htmlpage.getElementsByTagName('tr')
 

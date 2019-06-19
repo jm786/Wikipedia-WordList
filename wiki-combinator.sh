@@ -80,9 +80,9 @@ chdir ..
 touch wiki-extraction-wordlist.txt
 sort wiki-extraction-wordlist-unsorted.txt | uniq > wiki-extraction-wordlist.txt
 
-#rm -r $list_path
-#rm -r $dump_path
-#rm -r $master_path/wikisplits
+rm -rf $list_path
+rm -rf $dump_path
+rm -rf $master_path/wikisplits
 
 echo "wiki-extraction-wordlist.txt has been created. It contains all the words from the wikimedia dumps."
 

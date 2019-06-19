@@ -1,3 +1,4 @@
+#!/usr/bin/python3.7
 from tqdm import tqdm
 import os
 import shutil
