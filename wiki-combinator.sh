@@ -25,13 +25,6 @@ fi
 
 python3.7 -m pip install -qqq tqdm filesplit wget
 
-if [ $# -eq 1 ]
-then
-	processors=$1
-else
-        processors=10
-fi
-
 echo "Creating lists for all dumps in the folder"
 master_path=$PWD
 list_path=$master_path/wikilists
@@ -63,7 +56,7 @@ do
         if [ `echo $file | egrep '\.xml$'` ]
         then
 		filename=`echo $file | egrep -o '[a-z][a-z]wiki[a-z]*-latest-pages-articles\.xml$'`
-                python3.7 extractor.py $file $filename $processors
+                python3.7 extractor.py -n $file -f $filename -p 15
 	fi
 done
 

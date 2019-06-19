@@ -4,11 +4,6 @@ import os
 import shutil
 import sys
 
-if (len(sys.argv) > 1):
-    processors = sys.argv[1]
-else:
-    processors = 10
-
 print("Creating lists for all dumps in the folder")
 master_path = os.path.abspath(os.getcwd())
 path = os.path.join(os.getcwd(), "wikilists")
@@ -31,12 +26,12 @@ else:
     print("Wikidumps directory created")
 
 os.chdir(dump_path)
-#os.system('python %s' % (os.path.join(master_path, 'namescraper.py')))
+#os.system('python3.7 %s' % (os.path.join(master_path, 'namescraper.py')))
 os.chdir('..')
 
 for file in sorted(os.listdir(dump_path)):
     if (file[-4:] == '.xml'):
-        os.system('python extractor.py %s %s %s' % (file, dump_path, processors))
+        os.system('python3.7 extractor.py -n %s -f %s -p %s' % (file, dump_path, 15))
 
 ########################################################
 # Merges the lists back together, eliminating duplicates
