@@ -2,7 +2,6 @@
 from tqdm import tqdm
 import os
 import shutil
-import sys
 
 print("Creating lists for all dumps in the folder")
 master_path = os.path.abspath(os.getcwd())

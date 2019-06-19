@@ -12,12 +12,13 @@ import argparse
 # Implement a Parser
 parser = argparse.ArgumentParser(description="A tool to turn wikipedia dumps into wordlists")
 
-#Required Flags
+# Required Flags
 parser.add_argument('-n', action="store", metavar='file.xml', help='The name of the file to be parsed', required=True)
 parser.add_argument('-p', action="store", metavar='10', help='The number of processors to be used', required=True, nargs='?', default=10)
 parser.add_argument('-f', action="store", metavar='/absolute/path', help='The path where the file resides', required=True)
 
-args=parser.parse_args()
+args = parser.parse_args()
+
 
 # Removal Method
 def removal(filename):
