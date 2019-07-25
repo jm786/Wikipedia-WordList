@@ -2,7 +2,7 @@
 clear
 echo "###########################################################"
 echo "# Wikipedia Wordlists Extractor 1.0"
-echo "# usage: sh wiki-extract.sh wiki-file.xml"
+echo "# usage: sh extractor.sh wiki-file.xml"
 echo "#"
 echo "# https://github.com/ewwink/wikipedia-wordlists-extractor"
 echo "# by ewwink"

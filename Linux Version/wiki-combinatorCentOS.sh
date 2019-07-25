@@ -1,12 +1,16 @@
 #!/bin/sh
-apt update -qqq
+
+# WORK IN PROGRESS DO NOT USE
+echo WORK IN PROGRESS DO NOT USE
+
+yum update -y -q
 
 if [ `which python3.7 | egrep -c "python3.7"` -gt 0 ]
 then
 	echo "Python3.7 is installed"
 else
 	echo "Installing Python 3.7"
-	apt install -qqq software-properties-common
+	yum install -qqq software-properties-common
 	add-apt-repository ppa:deadsnakes/ppa > /dev/null 2>&1
 	apt -qqq update
 	apt install -qqq python3.7
@@ -78,4 +82,3 @@ rm -rf $dump_path
 rm -rf $master_path/wikisplits
 
 echo "wiki-extraction-wordlist.txt has been created. It contains all the words from the wikimedia dumps."
-
