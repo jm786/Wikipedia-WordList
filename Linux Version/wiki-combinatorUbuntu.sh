@@ -23,6 +23,7 @@ else
 	rm get-pip.py
 fi
 
+python3.7 -m pip install -qqq --upgrade pip
 python3.7 -m pip install -qqq tqdm wget
 
 echo "Creating lists for all dumps in the folder"
