@@ -3,31 +3,32 @@
 # WORK IN PROGRESS DO NOT USE
 echo WORK IN PROGRESS DO NOT USE
 
-yum update -y -q
+yum -y -q update
 
 if [ `which python3.7 | egrep -c "python3.7"` -gt 0 ]
 then
 	echo "Python3.7 is installed"
 else
 	echo "Installing Python 3.7"
-	yum install -qqq software-properties-common
-	add-apt-repository ppa:deadsnakes/ppa > /dev/null 2>&1
-	apt -qqq update
-	apt install -qqq python3.7
-	apt -qqq update
+	yum -y -q install gcc openssl-devel bzip2-devel libffi-devel wget
+	cd /usr/src && wget -q https://www.python.org/ftp/python/3.7.3/Python-3.7.3.tgz
+	tar xzf Python-3.7.3.tgz && cd Python-3.7.3 && ./configure --enable-optimizations >/dev/null
+	make altinstall >/dev/null && rm /usr/src/Python-3.7.3.tgz
+	yum -y -q update
 fi
 
 if [ `which pip | egrep -c "pip"` -gt 0 ]
 then
 	echo "Pip is installed"
+	pip3 -qqq install --update pip
 else
 	echo "Installing pip"
-	wget https://bootstrap.pypa.io/get-pip.py
-	python3.7 get-pip.py
-	rm get-pip.py
+	yum -y -q install epel-release && yum -y -q makecache && yum -y -q install python34-pip
+	pip3 -qqq install --update pip
+	yum -y -q update
 fi
 
-python3.7 -m pip install -qqq tqdm filesplit wget
+pip3 -qqq install tqdm filesplit wget
 
 echo "Creating lists for all dumps in the folder"
 master_path=$PWD
@@ -57,25 +58,22 @@ chdir ..
 
 for file in $dump_path/*
 do
-        if [ `echo $file | egrep '\.xml$'` ]
+				if [ `echo $file | egrep '\.xml$'` ]
         then
-		filename=`echo $file | egrep -o '[a-z][a-z]wiki[a-z]*-latest-pages-articles\.xml$'`
-                python3.7 extractor.py -n $file -f $filename -p 15
-	fi
+								filename=`echo $file | egrep -o '[a-z][a-z]wiki[a-z]*-latest-pages-articles\.xml$'`
+                sh extractor.sh $filename
+				fi
 done
 
 echo "Merging lists together"
 chdir $list_path
 echo $PWD
 
-result_path=$master_path/wiki-extraction-wordlist-unsorted.txt
+result_path=$master_path/wiki-extraction-wordlist.txt
 touch $result_path
 
-cat ./*-wordlist.txt >> $result_path
+sort -u ./*-wordlist.txt >> $result_path
 chdir ..
-
-touch wiki-extraction-wordlist.txt
-sort wiki-extraction-wordlist-unsorted.txt | uniq > wiki-extraction-wordlist.txt
 
 rm -rf $list_path
 rm -rf $dump_path
