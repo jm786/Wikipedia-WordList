@@ -33,7 +33,7 @@ echo ""
 
 echo "Removing non AlphaNumeric Character"
 cd wikitmp
-perl -pi -e 's/[\W_$\[\]]+/\n/g' wiki_*
+pv -tpre wiki_* | perl -pi -e 's/[\W_$\[\]]+/\n/g'
 echo ""
 
 echo "Removing wiki hash"
