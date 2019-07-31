@@ -20,7 +20,7 @@ wikiversity = []
 wikivoyage = []
 
 for row in tqdm(rows):
-    for x in range(7,22,2):
+    for x in range(7, 22, 2):
         if (not row.childNodes[x].childNodes[0].hasChildNodes()):
             continue
         nodedata = str(row.childNodes[x].childNodes[0].childNodes[0].nodeValue).split(':')
@@ -57,7 +57,7 @@ for wikitype in tqdm(wikimedia):
             print("\nUnzipping %s" % filename)
 
         with open(filename[:-4], 'wb') as new_file, bz2.BZ2File(filename, 'rb') as file:
-            for data in tqdm(iter(lambda : file.read(100 * 1024), b'')):
+            for data in tqdm(iter(lambda: file.read(100 * 1024), b'')):
                 new_file.write(data)
 
 for file in sorted(os.listdir(os.getcwd())):

@@ -57,7 +57,7 @@ do
         if [ `echo $file | egrep '\.xml$'` ]
         then
 								filename=`echo $file | egrep -o '[a-z][a-z]wiki[a-z]*-latest-pages-articles\.xml$'`
-                sh extractor.sh $file
+                sh extractor.sh $filename
 				fi
 done
 
