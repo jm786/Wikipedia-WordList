@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # WORK IN PROGRESS DO NOT USE
-echo WORK IN PROGRESS DO NOT USE
+# echo WORK IN PROGRESS DO NOT USE
 
 yum -y -q update
 
