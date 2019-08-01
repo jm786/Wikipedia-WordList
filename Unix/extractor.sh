@@ -2,7 +2,7 @@
 clear
 echo "###########################################################"
 echo "# Wikipedia Wordlists Extractor 1.0"
-echo "# usage: sh extractor.sh wiki-file.xml"
+echo "# usage: sh extractor.sh wiki-file.xml /resultdirectory"
 echo "#"
 echo "# https://github.com/ewwink/wikipedia-wordlists-extractor"
 echo "# by ewwink"
@@ -11,7 +11,8 @@ echo "###########################################################"
 echo ""
 
 XMLFILE=$1
-FILERESULT=$XMLFILE"-wordlists.txt"
+FILERESULT=$XMLFILE"-wordlist.txt"
+RESULTPATH=$2
 
 if [ $# -eq 0 ] ; then
     echo 'no File Specified, read the usage above'
@@ -31,9 +32,9 @@ fi
 split -l 300000 $XMLFILE wikitmp/wiki_
 echo ""
 
-echo "Removing non AlphaNumeric Character"
 cd wikitmp
-pv -tpre wiki_* | perl -pi -e 's/[\W_$\[\]]+/\n/g'
+echo "Removing non AlphaNumeric Character"
+perl -pi -e 's/[\W_$\[\]]+/\n/g' wiki_*
 echo ""
 
 echo "Removing wiki hash"
@@ -46,7 +47,7 @@ echo ""
 
 echo "Merging and Sorting Word lists"
 bash -c "sort -u -S 30% wiki_* > $FILERESULT"
-mv $FILERESULT ../$FILERESULT
+mv $FILERESULT $RESULTPATH
 cd ..
 echo ""
 

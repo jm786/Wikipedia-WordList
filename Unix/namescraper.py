@@ -1,4 +1,3 @@
-#!/usr/bin/python3.7
 from tqdm import tqdm
 import xml.dom.minidom as minidom
 import bz2
@@ -6,7 +5,12 @@ import wget
 import os
 import urllib
 
-os.system("python3.7 -m wget https://meta.wikimedia.org/wiki/Table_of_Wikimedia_projects -o Table_of_Wikimedia_projects.html")
+url = "https://meta.wikimedia.org/wiki/Table_of_Wikimedia_projects"
+try:
+	wget.download(url, "Table_of_Wikimedia_projects.html")
+except urllib.error.HTTPError as e:
+	print("There was an error downloading %s: %s.\nThe table is not currently accessible.")
+
 htmlpage = minidom.parse("Table_of_Wikimedia_projects.html")
 rows = htmlpage.getElementsByTagName('tr')
 
