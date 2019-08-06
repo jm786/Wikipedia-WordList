@@ -25,7 +25,7 @@ else:
     print("Wikidumps directory created")
 
 os.chdir(dump_path)
-#os.system('python3.7 %s' % (os.path.join(master_path, 'namescraper.py')))
+os.system('python3.7 %s' % (os.path.join(master_path, 'namescraper.py')))
 os.chdir('..')
 
 for file in sorted(os.listdir(dump_path)):
