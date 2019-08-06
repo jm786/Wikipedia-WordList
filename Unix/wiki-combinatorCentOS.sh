@@ -14,8 +14,8 @@ else
 	echo "Installing Python 3.7"
 	sudo yum -y -q groupinstall "Development Tools" && sudo yum -y -q install wget
 	cd /usr/src && sudo wget -q https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tgz
-	sudo tar xzf Python-3.7.4.tgz && cd Python-3.7.4 && ./configure --enable-optimizations >/dev/null
-	make altinstall >/dev/null && sudo rm /usr/src/Python-3.7.4.tgz
+	sudo tar xzf Python-3.7.4.tgz && cd Python-3.7.4 && sudo ./configure --enable-optimizations >/dev/null
+	sudo make altinstall >/dev/null && sudo rm /usr/src/Python-3.7.4.tgz
 	sudo yum -y -q update
 	python3path=`which python3.7`
 	echo "Python3.7 has been installed"
