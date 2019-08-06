@@ -41,7 +41,7 @@ print("Merging lists together")
 os.chdir(path)
 
 # Reinstate code for Windows
-'''
+
 finaldict = {}
 for file in os.listdir(os.getcwd()):
     with open(file, 'r+', encoding="UTF-8") as f:
@@ -56,7 +56,7 @@ fileresult.seek(0)
 for word in tqdm(sorted(list(finaldict.keys()))):
     fileresult.write(word + '\n')
 fileresult.close()
-'''
+
 
 result_path = os.path.join(master_path, "wiki-extraction-wordlist-unsorted.txt")
 with open(result_path, 'wb') as wfd:
