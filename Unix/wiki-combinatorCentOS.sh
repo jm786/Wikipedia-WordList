@@ -25,7 +25,7 @@ echo "Verifying Pip Installation"
 if [ `echo $pippath | egrep -c "pip"` -gt 0 ]
 then
 	echo "Pip is installed"
-	sudo "$python3path" -m pip install --upgrade pip -qqq
+	sudo "$python3path" -m pip install --upgrade pip -qqq 
 else
 	echo "Installing Pip"
 	sudo yum -y -q install epel-release && yum -y -q makecache && yum -y -q install python-pip
