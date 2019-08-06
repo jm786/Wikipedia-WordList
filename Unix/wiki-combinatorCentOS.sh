@@ -12,7 +12,7 @@ then
 	echo "Python3.7 is installed"
 else
 	echo "Installing Python 3.7"
-	sudo yum -y -q groupinstall "Development Tools" && sudo yum -y -q install wget
+	sudo yum -y -q groupinstall "Development Tools" && sudo yum -y -q install wget bzip2-devel openssl-develsudo 
 	cd /usr/src && sudo wget -q https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tgz
 	sudo tar xzf Python-3.7.4.tgz && cd Python-3.7.4 && sudo ./configure --enable-optimizations >/dev/null
 	sudo make altinstall >/dev/null && sudo rm /usr/src/Python-3.7.4.tgz
